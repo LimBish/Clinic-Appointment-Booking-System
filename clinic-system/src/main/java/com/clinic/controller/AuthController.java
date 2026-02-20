@@ -1,6 +1,7 @@
 package com.clinic.controller;
 
 import com.clinic.dto.request.PatientRegistrationRequest;
+import com.clinic.service.ClinicService;
 import com.clinic.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthController {
 
     private final UserService userService;
+    private final ClinicService clinicService;
 
     @GetMapping("/login")
     public String loginPage(
@@ -44,6 +46,7 @@ public class AuthController {
     @GetMapping("/register")
     public String registerPage(Model model) {
         model.addAttribute("registrationRequest", new PatientRegistrationRequest());
+        model.addAttribute("activeClinics", clinicService.getClinicsByStatus("ACTIVE"));
         return "auth/register";
     }
 
@@ -51,9 +54,11 @@ public class AuthController {
     public String register(
             @Valid @ModelAttribute("registrationRequest") PatientRegistrationRequest request,
             BindingResult result,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("activeClinics", clinicService.getClinicsByStatus("ACTIVE"));
             return "auth/register";
         }
         try {

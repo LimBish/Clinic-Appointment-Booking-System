@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: head('Queue Overview')}"></head>
+<head th:text="~{fragments/layout :: head('Queue Overview')}"></head>
 
 <body class="bg-light d-flex flex-column" style="min-height:100vh">
 
-    <div th:replace="~{fragments/layout :: navbar}"></div>
-    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div th:text="~{fragments/layout :: navbar}"></div>
+    <div th:text="~{fragments/layout :: alerts}"></div>
 
     <main class="container my-4 flex-grow-1">
 
@@ -36,8 +36,8 @@
 
     </main>
 
-    <div th:replace="~{fragments/layout :: footer}"></div>
-    <div th:replace="~{fragments/layout :: scripts}"></div>
+    <div th:text="~{fragments/layout :: footer}"></div>
+    <div th:text="~{fragments/layout :: scripts}"></div>
 </body>
 
 </html>

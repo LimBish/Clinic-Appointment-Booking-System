@@ -3,9 +3,12 @@ package com.clinic.util;
 import com.clinic.model.entity.User;
 import com.clinic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 /**
  * SecurityUtils — convenience methods for getting the currently authenticated user.
@@ -14,21 +17,22 @@ import org.springframework.stereotype.Component;
  * without needing to inject UserRepository everywhere.
  */
 @Component
-@RequiredArgsConstructor
 public class SecurityUtils {
 
+    @Autowired
     private static UserRepository userRepository;
 
-    public SecurityUtils(UserRepository repo) {
-        SecurityUtils.userRepository = repo;
-    }
 
     /** Returns the ID of the currently logged-in user. */
     public static Long getCurrentUserId() {
         String email = getCurrentEmail();
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent())
         return userRepository.findByEmail(email)
                 .map(User::getId)
                 .orElseThrow(() -> new RuntimeException("Authenticated user not found in DB"));
+
+        return null;
     }
 
     /** Returns the email (username) of the currently logged-in user. */

@@ -2,6 +2,8 @@ package com.clinic.controller;
 
 import com.clinic.dto.request.AppointmentBookRequest;
 import com.clinic.dto.request.AppointmentRescheduleRequest;
+import com.clinic.model.entity.User;
+import com.clinic.repository.UserRepository;
 import com.clinic.service.AppointmentService;
 import com.clinic.service.DoctorService;
 import com.clinic.service.QueueService;

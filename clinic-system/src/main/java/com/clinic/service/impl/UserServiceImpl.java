@@ -4,9 +4,12 @@ import com.clinic.dto.request.PatientRegistrationRequest;
 import com.clinic.dto.response.UserResponse;
 import com.clinic.exception.DuplicateResourceException;
 import com.clinic.exception.ResourceNotFoundException;
+import com.clinic.model.entity.Clinic;
 import com.clinic.model.entity.Patient;
 import com.clinic.model.entity.User;
+import com.clinic.model.enums.ClinicStatus;
 import com.clinic.model.enums.Role;
+import com.clinic.repository.ClinicRepository;
 import com.clinic.repository.PatientRepository;
 import com.clinic.repository.UserRepository;
 import com.clinic.service.UserService;
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
+    private final ClinicRepository clinicRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -35,18 +39,27 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateResourceException("Phone number is already in use.");
         }
 
+        // Resolve and validate the chosen clinic
+        Clinic clinic = clinicRepository.findById(req.getClinicId())
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", req.getClinicId()));
+        if (clinic.getStatus() != ClinicStatus.ACTIVE) {
+            throw new IllegalStateException("The selected clinic is not currently accepting registrations.");
+        }
+
         User user = User.builder()
                 .fullName(req.getFullName())
                 .email(req.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(req.getPassword()))
                 .phone(req.getPhone())
                 .role(Role.PATIENT)
+                .clinic(clinic)
                 .enabled(true)
                 .build();
         User savedUser = userRepository.save(user);
 
         Patient patient = Patient.builder()
                 .user(savedUser)
+                .clinic(clinic)
                 .dateOfBirth(req.getDateOfBirth())
                 .gender(req.getGender())
                 .address(req.getAddress())
@@ -55,7 +68,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         patientRepository.save(patient);
 
-        log.info("New patient registered: {}", savedUser.getEmail());
+        log.info("New patient registered: {} under clinic: {}", savedUser.getEmail(), clinic.getName());
         return toResponse(savedUser);
     }
 

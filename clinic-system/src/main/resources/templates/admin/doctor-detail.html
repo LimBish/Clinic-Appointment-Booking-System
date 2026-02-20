@@ -26,15 +26,16 @@
                         <div class="bg-primary text-white rounded-circle d-inline-block p-4 mb-3">
                             <i class="bi bi-person-vcard display-4"></i>
                         </div>
-                        <h5 class="fw-bold" th:text="'Dr. ' + ${doctor.fullName}"></h5>
-                        <p class="text-muted" th:text="${doctor.specialization}"></p>
-                        <hr />
-                        <div class="text-start small">
-                            <p class="mb-1 text-uppercase fw-bold text-muted">Contact</p>
-                            <p class="mb-3" th:text="${doctor.phone}"></p>
-                            <p class="mb-1 text-uppercase fw-bold text-muted">Limits</p>
-                            <p class="mb-0">Max <strong th:text="${doctor.maxDailyAppointments}"></strong>
-                                appointments/day</p>
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold" th:text="'Dr. ' + ${doctor.user?.fullName} ?: 'Unnamed Doctor'"></h5>
+                            <p class="text-muted" th:text="${doctor.specialization} ?: 'Specialization not set'"></p>
+                            <hr />
+                            <div class="text-start small">
+                                <p class="mb-1 text-uppercase fw-bold text-muted">Contact</p>
+                                <p class="mb-3" th:text="${doctor.user?.phone} ?: 'Not provided'"></p>
+                                <p class="mb-1 text-uppercase fw-bold text-muted">Limits</p>
+                                <p class="mb-0">Max <strong th:text="${doctor.maxDailyAppointments}"></strong> appointments/day</p>
+                            </div>
                         </div>
                     </div>
                 </div>

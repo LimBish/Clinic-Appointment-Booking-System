@@ -17,6 +17,9 @@ import java.time.LocalDate;
 @Builder
 public class PatientRegistrationRequest {
 
+    @NotNull(message = "Please select a clinic")
+    private Long clinicId;
+
     @NotBlank(message = "Full name is required")
     @Size(min = 2, max = 100)
     private String fullName;

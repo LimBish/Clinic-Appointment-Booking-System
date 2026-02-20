@@ -28,20 +28,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="doc : ${doctors}">
-                            <td th:text="${doc.id}"></td>
-                            <td class="fw-bold" th:text="${doc.fullName}"></td>
-                            <td th:text="${doc.specialization}"></td>
-                            <td th:text="${doc.maxDailyAppointments}"></td>
-                            <td>
-                                <span class="badge" th:classappend="${doc.enabled ? 'bg-success' : 'bg-danger'}"
-                                    th:text="${doc.enabled ? 'Active' : 'Suspended'}"></span>
-                            </td>
-                            <td>
-                                <a th:href="@{/admin/doctors/{id}(id=${doc.id})}"
-                                    class="btn btn-sm btn-outline-primary">View Schedule</a>
-                            </td>
-                        </tr>
+                    <tr th:each="doc : ${doctors}">
+                        <td th:text="${doc.id}"></td>
+                        <td class="fw-bold" th:text="${doc.user?.fullName} ?: 'Unnamed Doctor'"></td>
+                        <td th:text="${doc.specialization} ?: '-'"></td>
+                        <td th:text="${doc.maxDailyAppointments}"></td>
+                        <td>
+        <span class="badge"
+              th:classappend="${doc.user?.enabled ? 'bg-success' : 'bg-danger'}"
+              th:text="${doc.user?.enabled ? 'Active' : 'Suspended'}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/doctors/{id}(id=${doc.id})}"
+                               class="btn btn-sm btn-outline-primary">View Schedule</a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

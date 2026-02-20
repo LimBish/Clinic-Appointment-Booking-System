@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Clinic Suspended')}"></head>
+<head th:text="~{fragments/layout :: head('Clinic Suspended')}"></head>
 <body class="d-flex align-items-center justify-content-center bg-light" style="min-height:100vh">
 <div class="text-center" style="max-width:480px">
     <i class="bi bi-building-x display-1 text-danger"></i>
@@ -13,6 +13,6 @@
         <i class="bi bi-arrow-left me-1"></i>Back to Login
     </a>
 </div>
-<div th:replace="~{fragments/layout :: scripts}"></div>
+<div th:text="~{fragments/layout :: scripts}"></div>
 </body>
 </html>
