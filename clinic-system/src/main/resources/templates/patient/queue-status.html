@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  patient/queue-status.html — Real-time queue position page.
+
+  Auto-refreshes every 30 seconds using the HTML meta refresh tag.
+  No JavaScript required — works on basic mobile browsers and low-bandwidth connections.
+
+  Ethics (Week 5, Justice): ensures even users without smartphones
+  can track their position (meta refresh works on any browser).
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Queue Status')}">
+    <!-- 30-second auto-refresh — set by server side to avoid client JS dependency -->
+    <meta http-equiv="refresh" content="30"/>
+</head>
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div th:replace="~{fragments/layout :: alerts}"></div>
+
+<main class="container my-4 flex-grow-1" style="max-width:600px">
+    <h4 class="fw-bold mb-4">
+        <i class="bi bi-people me-2 text-primary"></i>Your Queue Status
+    </h4>
+
+    <!-- Not in queue -->
+    <div th:if="${notInQueue}" class="card shadow-sm text-center py-5">
+        <div class="card-body">
+            <i class="bi bi-calendar-x display-3 text-muted"></i>
+            <h5 class="mt-3 text-muted">You are not currently in a queue</h5>
+            <p class="text-muted small">
+                You need to check in at the clinic reception desk
+                against your confirmed appointment.
+            </p>
+            <a th:href="@{/patient/dashboard}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- In queue -->
+    <div th:if="${queueEntry != null}" class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">You are in the queue</h5>
+            <small class="opacity-75">Page auto-refreshes every 30 seconds</small>
+        </div>
+        <div class="card-body text-center py-4">
+
+            <!-- Queue number — large and prominent -->
+            <div class="display-1 fw-bold text-primary" th:text="'#' + ${queueEntry.queueNumber}"></div>
+            <p class="text-muted mb-3">Your queue number</p>
+
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="card bg-light">
+                        <div class="card-body py-3">
+                            <div class="fs-2 fw-bold text-warning"
+                                 th:text="${queueEntry.patientsAhead}"></div>
+                            <small class="text-muted">Patients ahead</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card bg-light">
+                        <div class="card-body py-3">
+                            <div class="fs-2 fw-bold text-success"
+                                 th:text="${queueEntry.estimatedWaitMinutes} + ' min'"></div>
+                            <small class="text-muted">Estimated wait</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status badge -->
+            <span class="badge fs-6 px-3 py-2"
+                  th:classappend="${queueEntry.status == 'WAITING'} ? 'bg-info'
+                              : (${queueEntry.status == 'IN_CONSULT'} ? 'bg-success' : 'bg-secondary')"
+                  th:text="${queueEntry.status}"></span>
+
+            <div class="mt-3 text-muted small">
+                Doctor: <strong th:text="'Dr. ' + ${queueEntry.doctorName}"></strong><br/>
+                Checked in at:
+                <span th:text="${#temporals.format(queueEntry.checkInTime, 'hh:mm a')}"></span>
+            </div>
+
+            <div th:if="${queueEntry.status == 'IN_CONSULT'}"
+                 class="alert alert-success mt-3 mb-0">
+                <i class="bi bi-bell-fill me-2"></i>
+                <strong>Please proceed to the consultation room now!</strong>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

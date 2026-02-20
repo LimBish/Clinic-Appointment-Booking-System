@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Patient Dashboard')}"></head>
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div th:replace="~{fragments/layout :: alerts}"></div>
+
+<main class="container my-4 flex-grow-1">
+
+    <h4 class="fw-bold mb-4">
+        <i class="bi bi-speedometer2 me-2 text-primary"></i>Patient Dashboard
+        <small class="fs-6 text-muted fw-normal ms-2">
+            Welcome, <span sec:authentication="name"></span>
+        </small>
+    </h4>
+
+    <!-- ── Queue Status Card (if patient is in queue) ── -->
+    <div th:if="${queueStatus != null}" class="alert alert-info mb-4">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-people-fill fs-3 me-3"></i>
+            <div>
+                <strong>You are in the queue!</strong> &nbsp;
+                Queue #<strong th:text="${queueStatus.queueNumber}"></strong>
+                &nbsp;|&nbsp;
+                <span th:text="${queueStatus.patientsAhead}"></span> patient(s) ahead
+                &nbsp;|&nbsp;
+                Est. wait: <strong th:text="${queueStatus.estimatedWaitMinutes} + ' min'"></strong>
+            </div>
+            <a th:href="@{/patient/queue}" class="btn btn-info btn-sm ms-auto">Live Status</a>
+        </div>
+    </div>
+
+    <!-- ── Quick Actions ── -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <a th:href="@{/patient/appointments/book}" class="card text-decoration-none h-100">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-calendar-plus display-5 text-primary"></i>
+                    <p class="mt-2 fw-semibold mb-0">Book Appointment</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/patient/appointments}" class="card text-decoration-none h-100">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-calendar-check display-5 text-success"></i>
+                    <p class="mt-2 fw-semibold mb-0">My Appointments</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/patient/queue}" class="card text-decoration-none h-100">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-list-ol display-5 text-info"></i>
+                    <p class="mt-2 fw-semibold mb-0">Queue Status</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── Upcoming Appointments ── -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0"><i class="bi bi-calendar-event me-2"></i>Upcoming Appointments</h6>
+            <a th:href="@{/patient/appointments/book}" class="btn btn-primary btn-sm">
+                + Book New
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <!-- Empty state -->
+            <div th:if="${#lists.isEmpty(upcomingAppointments)}"
+                 class="text-center text-muted py-5">
+                <i class="bi bi-calendar-x display-4"></i>
+                <p class="mt-2">No upcoming appointments.</p>
+                <a th:href="@{/patient/appointments/book}" class="btn btn-outline-primary">
+                    Book your first appointment
+                </a>
+            </div>
+
+            <!-- Appointment table -->
+            <table th:if="${!#lists.isEmpty(upcomingAppointments)}"
+                   class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date</th><th>Time</th><th>Doctor</th>
+                        <th>Specialization</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="appt : ${upcomingAppointments}">
+                        <td th:text="${#temporals.format(appt.appointmentDate, 'dd MMM yyyy')}"></td>
+                        <td th:text="${#temporals.format(appt.appointmentTime, 'hh:mm a')}"></td>
+                        <td th:text="'Dr. ' + ${appt.doctorName}"></td>
+                        <td th:text="${appt.doctorSpecialization}"></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${appt.status == 'CONFIRMED'} ? 'bg-success'
+                                              : (${appt.status == 'PENDING'}   ? 'bg-warning text-dark'
+                                              : 'bg-secondary')"
+                                  th:text="${appt.status}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/patient/appointments/{id}(id=${appt.id})}"
+                               class="btn btn-outline-secondary btn-sm">View</a>
+                            <a th:if="${appt.status == 'CONFIRMED' or appt.status == 'PENDING'}"
+                               th:href="@{/patient/appointments/{id}/reschedule(id=${appt.id})}"
+                               class="btn btn-outline-warning btn-sm">Reschedule</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

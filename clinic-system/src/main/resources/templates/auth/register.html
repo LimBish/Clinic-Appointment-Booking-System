@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Register — ClinicCare')}"></head>
+<body class="bg-light">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="container my-4" style="max-width:600px">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-person-plus me-2"></i>Patient Registration</h5>
+        </div>
+        <div class="card-body p-4">
+
+            <div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+
+            <form th:action="@{/auth/register}" th:object="${registrationRequest}"
+                  method="post" novalidate>
+
+                <!-- Full Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Full Name *</label>
+                    <input type="text" th:field="*{fullName}"
+                           class="form-control" th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
+                           placeholder="e.g. Ram Sharma" required/>
+                    <div class="invalid-feedback" th:errors="*{fullName}"></div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email Address *</label>
+                    <input type="email" th:field="*{email}"
+                           class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                           placeholder="you@example.com" required/>
+                    <div class="invalid-feedback" th:errors="*{email}"></div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password *</label>
+                    <input type="password" th:field="*{password}"
+                           class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                           placeholder="Minimum 8 characters" required/>
+                    <div class="invalid-feedback" th:errors="*{password}"></div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Phone Number *</label>
+                    <input type="tel" th:field="*{phone}"
+                           class="form-control" th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'"
+                           placeholder="+977 9800000000" required/>
+                    <div class="invalid-feedback" th:errors="*{phone}"></div>
+                </div>
+
+                <div class="row">
+                    <!-- Date of Birth -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" th:field="*{dateOfBirth}" class="form-control"/>
+                    </div>
+                    <!-- Gender -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select th:field="*{gender}" class="form-select">
+                            <option value="">Prefer not to say</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea th:field="*{address}" class="form-control" rows="2"
+                              placeholder="Your address (optional)"></textarea>
+                </div>
+
+                <!-- ── CONSENT SECTION (Ethics: Autonomy) ── -->
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <p class="small text-muted mb-2">
+                            <i class="bi bi-shield-lock me-1"></i>
+                            <strong>Your Data &amp; Consent</strong> — We collect your name,
+                            email, and phone to manage your appointments. We do NOT store
+                            medical records. You can request data deletion at any time.
+                        </p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                   th:field="*{emailConsent}" id="emailConsent"/>
+                            <label class="form-check-label small" for="emailConsent">
+                                I agree to receive appointment confirmations &amp;
+                                reminders by <strong>email</strong>
+                            </label>
+                        </div>
+                        <div class="form-check mt-1">
+                            <input class="form-check-input" type="checkbox"
+                                   th:field="*{smsConsent}" id="smsConsent"/>
+                            <label class="form-check-label small" for="smsConsent">
+                                I agree to receive appointment reminders by <strong>SMS</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-person-check me-1"></i>Create Account
+                    </button>
+                </div>
+                <p class="text-center mt-3 mb-0 text-muted small">
+                    Already registered?
+                    <a th:href="@{/auth/login}">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

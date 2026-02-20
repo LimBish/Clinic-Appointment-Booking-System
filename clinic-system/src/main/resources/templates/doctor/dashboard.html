@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/layout :: head('Doctor Dashboard')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <div class="row align-items-end mb-4">
+            <div class="col-md-8">
+                <h4 class="fw-bold mb-0">
+                    <i class="bi bi-heart-pulse me-2 text-danger"></i>Doctor Dashboard
+                    <small class="fs-6 text-muted fw-normal ms-2">
+                        Welcome, <span sec:authentication="name"></span>
+                    </small>
+                </h4>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="badge bg-white text-dark shadow-sm border p-2">
+                    <i class="bi bi-calendar3 me-2 text-primary"></i>
+                    Today: <span th:text="${#temporals.format(today, 'dd MMMM yyyy')}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Stats Overview ── -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-primary text-white">
+                    <div class="card-body">
+                        <h6 class="text-white-50 small text-uppercase fw-bold">Daily Appointments</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="display-6 fw-bold" th:text="${#lists.size(todayAppointments)}">0</span>
+                            <i class="bi bi-calendar-check fs-1 text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-info text-white">
+                    <div class="card-body">
+                        <h6 class="text-white-50 small text-uppercase fw-bold">Live Queue</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="display-6 fw-bold" th:text="${#lists.size(queueEntries)}">0</span>
+                            <i class="bi bi-people-fill fs-1 text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-success text-white">
+                    <div class="card-body">
+                        <h6 class="text-white-50 small text-uppercase fw-bold">Actions</h6>
+                        <div class="d-grid mt-2">
+                            <a th:href="@{/doctor/queue}" class="btn btn-light btn-sm fw-bold">Manage Queue</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- ── Today's Schedule ── -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3">
+                        <h6 class="mb-0 fw-bold"><i class="bi bi-list-task me-2 text-primary"></i>Today's Schedule</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div th:if="${#lists.isEmpty(todayAppointments)}" class="text-center py-5">
+                            <i class="bi bi-calendar-x display-4 text-muted"></i>
+                            <p class="mt-2 text-muted">No appointments for today.</p>
+                        </div>
+                        <table th:if="${!#lists.isEmpty(todayAppointments)}"
+                            class="table table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Patient</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="appt : ${todayAppointments}">
+                                    <td class="fw-bold" th:text="${#temporals.format(appt.appointmentTime, 'hh:mm a')}">
+                                    </td>
+                                    <td th:text="${appt.patientName}"></td>
+                                    <td>
+                                        <span class="badge"
+                                            th:classappend="${appt.status == 'CONFIRMED' ? 'bg-success' : 'bg-warning text-dark'}"
+                                            th:text="${appt.status}"></span>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/doctor/queue}" class="btn btn-sm btn-outline-primary">Process</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Active Patient info (Placeholder) ── -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 h-100 bg-light">
+                    <div class="card-body text-center p-4">
+                        <h6 class="text-uppercase small fw-bold text-muted mb-4">Patient Management</h6>
+                        <div class="bg-white rounded p-4 mb-4 shadow-sm">
+                            <i class="bi bi-person-video display-1 text-primary mb-3"></i>
+                            <h5>Manage live queue</h5>
+                            <p class="text-muted small">Call patients, skip slots, and mark visits as completed.</p>
+                        </div>
+                        <a th:href="@{/doctor/queue}" class="btn btn-primary w-100 btn-lg shadow">Launch Queue Panel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

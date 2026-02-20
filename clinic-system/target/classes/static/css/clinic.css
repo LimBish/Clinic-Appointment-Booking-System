@@ -1,0 +1,48 @@
+/* clinic.css — Custom styles for ClinicCare application */
+
+/* ── Base ──────────────────────────────────────────────── */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Cards ─────────────────────────────────────────────── */
+.card {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10) !important;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+/* ── Queue number display ───────────────────────────────── */
+.display-1 {
+    font-size: 5rem;
+    line-height: 1.1;
+}
+
+/* ── Status badges ──────────────────────────────────────── */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* ── Tables ─────────────────────────────────────────────── */
+.table th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+    margin-top: auto;
+}

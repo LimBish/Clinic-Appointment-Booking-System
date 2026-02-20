@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Doctor Queue Details')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin/queue}">Queue Monitor</a></li>
+                <li class="breadcrumb-item active">Queue Detail</li>
+            </ol>
+        </nav>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="fw-bold mb-1 text-info"><i class="bi bi-list-ol me-2"></i>Queue for Dr. <span
+                                th:text="${doctor.fullName}"></span></h4>
+                        <p class="text-muted mb-0">Date: <strong
+                                th:text="${#temporals.format(selectedDate, 'dd MMM yyyy')}"></strong></p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <form method="get" class="d-flex gap-2 justify-content-md-end">
+                            <input type="date" name="date" class="form-control form-control-sm w-auto"
+                                th:value="${selectedDate}" />
+                            <button type="submit" class="btn btn-sm btn-primary">Switch Date</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div th:if="${#lists.isEmpty(queue)}" class="text-center py-5 text-muted">
+                    <i class="bi bi-calendar-x display-4 mb-3 d-block"></i>
+                    <p>No patients in queue for this date.</p>
+                </div>
+                <table th:if="${!#lists.isEmpty(queue)}" class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Queue No</th>
+                            <th>Patient</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="entry, stat : ${queue}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td class="fw-bold" th:text="${entry.queueNumber}"></td>
+                            <td th:text="${entry.patientName}"></td>
+                            <td th:text="${entry.entryType}"></td>
+                            <td>
+                                <span class="badge"
+                                    th:classappend="${entry.status == 'CHECKED_IN' ? 'bg-primary' : (entry.status == 'CALLED' ? 'bg-warning text-dark' : 'bg-success')}"
+                                    th:text="${entry.status}"></span>
+                            </td>
+                            <td>
+                                <form th:if="${entry.status == 'CHECKED_IN' or entry.status == 'CALLED'}"
+                                    th:action="@{/admin/queue/{id}/skip(id=${entry.id})}" method="post">
+                                    <input type="hidden" name="doctorId" th:value="${doctor.id}" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Skip this patient?')">Skip</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

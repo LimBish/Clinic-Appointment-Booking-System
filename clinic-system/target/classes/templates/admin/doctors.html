@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Manage Doctors')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0 text-primary"><i class="bi bi-person-workspace me-2"></i>Doctor Management</h4>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Specialization</th>
+                            <th>Max Daily</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="doc : ${doctors}">
+                            <td th:text="${doc.id}"></td>
+                            <td class="fw-bold" th:text="${doc.fullName}"></td>
+                            <td th:text="${doc.specialization}"></td>
+                            <td th:text="${doc.maxDailyAppointments}"></td>
+                            <td>
+                                <span class="badge" th:classappend="${doc.enabled ? 'bg-success' : 'bg-danger'}"
+                                    th:text="${doc.enabled ? 'Active' : 'Suspended'}"></span>
+                            </td>
+                            <td>
+                                <a th:href="@{/admin/doctors/{id}(id=${doc.id})}"
+                                    class="btn btn-sm btn-outline-primary">View Schedule</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

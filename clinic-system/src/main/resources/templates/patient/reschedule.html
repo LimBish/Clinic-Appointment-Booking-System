@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Reschedule Appointment')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2"></i>Reschedule Appointment</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted mb-4">
+                            Currently scheduled for: <br />
+                            <strong th:text="'Dr. ' + ${appointment.doctorName}"></strong> on
+                            <strong th:text="${#temporals.format(appointment.appointmentDate, 'dd MMM yyyy')}"></strong>
+                            at
+                            <strong th:text="${#temporals.format(appointment.appointmentTime, 'hh:mm a')}"></strong>
+                        </p>
+
+                        <form th:action="@{/patient/appointments/{id}/reschedule(id=${appointment.id})}"
+                            th:object="${rescheduleRequest}" method="post">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">New Date</label>
+                                <input type="date" th:field="*{newDate}" class="form-control"
+                                    th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" />
+                                <div th:if="${#fields.hasErrors('newDate')}" class="text-danger small"
+                                    th:errors="*{newDate}"></div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">New Time</label>
+                                <input type="time" th:field="*{newTime}" class="form-control" />
+                                <div th:if="${#fields.hasErrors('newTime')}" class="text-danger small"
+                                    th:errors="*{newTime}"></div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning fw-bold text-uppercase">Confirm
+                                    Reschedule</button>
+                                <a th:href="@{/patient/appointments/{id}(id=${appointment.id})}"
+                                    class="btn btn-outline-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-4 alert alert-light border small">
+                    <i class="bi bi-info-circle me-1 text-primary"></i>
+                    <strong>Note:</strong> Rescheduling will release your current time slot back into the available
+                    pool.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

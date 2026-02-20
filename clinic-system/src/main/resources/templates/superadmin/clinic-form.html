@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Register New Clinic — Super Admin')}"></head>
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div th:replace="~{fragments/layout :: alerts}"></div>
+
+<main class="container my-4 flex-grow-1" style="max-width:680px">
+
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/superadmin/dashboard}">Platform</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/superadmin/clinics}">Clinics</a></li>
+            <li class="breadcrumb-item active">Register New Clinic</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-building-add me-2"></i>Register New Clinic</h5>
+        </div>
+        <div class="card-body p-4">
+
+            <div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+
+            <form th:action="@{/superadmin/clinics}" th:object="${clinicRequest}"
+                  method="post" novalidate>
+
+                <div class="row g-3">
+
+                    <!-- Clinic Name -->
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Clinic Name *</label>
+                        <input type="text" th:field="*{name}" class="form-control"
+                               th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                               placeholder="e.g. Kathmandu Family Clinic"/>
+                        <div class="invalid-feedback" th:errors="*{name}"></div>
+                    </div>
+
+                    <!-- Registration Code -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Registration Code *</label>
+                        <input type="text" th:field="*{registrationCode}" class="form-control"
+                               th:classappend="${#fields.hasErrors('registrationCode')} ? 'is-invalid'"
+                               placeholder="e.g. KTM-001" style="text-transform:uppercase"/>
+                        <div class="form-text">Unique code: CITY-NNN format</div>
+                        <div class="invalid-feedback" th:errors="*{registrationCode}"></div>
+                    </div>
+
+                    <!-- Subscription Plan -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Subscription Plan</label>
+                        <select th:field="*{subscriptionPlan}" class="form-select">
+                            <option value="BASIC">BASIC (up to 5 doctors)</option>
+                            <option value="STANDARD" selected>STANDARD (up to 10 doctors)</option>
+                            <option value="PREMIUM">PREMIUM (up to 50 doctors)</option>
+                        </select>
+                    </div>
+
+                    <!-- Max Doctors -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Max Doctors Allowed *</label>
+                        <input type="number" th:field="*{maxDoctors}" class="form-control"
+                               th:classappend="${#fields.hasErrors('maxDoctors')} ? 'is-invalid'"
+                               min="1" max="200" value="10"/>
+                        <div class="invalid-feedback" th:errors="*{maxDoctors}"></div>
+                    </div>
+
+                    <!-- City -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">City *</label>
+                        <input type="text" th:field="*{city}" class="form-control"
+                               th:classappend="${#fields.hasErrors('city')} ? 'is-invalid'"
+                               placeholder="e.g. Kathmandu"/>
+                        <div class="invalid-feedback" th:errors="*{city}"></div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Address *</label>
+                        <textarea th:field="*{address}" class="form-control" rows="2"
+                                  th:classappend="${#fields.hasErrors('address')} ? 'is-invalid'"
+                                  placeholder="Full street address"></textarea>
+                        <div class="invalid-feedback" th:errors="*{address}"></div>
+                    </div>
+
+                    <!-- Contact Email -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Clinic Contact Email</label>
+                        <input type="email" th:field="*{contactEmail}" class="form-control"
+                               placeholder="clinic@example.com"/>
+                        <div class="form-text">Not used for login — clinic contact only</div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Clinic Phone</label>
+                        <input type="tel" th:field="*{phone}" class="form-control"
+                               placeholder="+977 01-XXXXXXX"/>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Internal Notes</label>
+                        <textarea th:field="*{notes}" class="form-control" rows="2"
+                                  placeholder="Internal notes (visible to super admin only)"></textarea>
+                    </div>
+
+                </div>
+
+                <hr class="my-4"/>
+
+                <div class="alert alert-info small mb-4">
+                    <i class="bi bi-info-circle me-1"></i>
+                    The clinic will be created with status <strong>PENDING</strong>.
+                    You must explicitly activate it before the clinic's users can log in.
+                    Next step: assign a clinic admin account.
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-building-check me-1"></i>Register Clinic
+                    </button>
+                    <a th:href="@{/superadmin/clinics}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

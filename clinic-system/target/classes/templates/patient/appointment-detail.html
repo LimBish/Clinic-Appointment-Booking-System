@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Appointment Details')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/patient/dashboard}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/patient/appointments}">My Appointments</a></li>
+                <li class="breadcrumb-item active">Details</li>
+            </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 text-primary"><i class="bi bi-info-circle me-2"></i>Appointment Details #<span
+                                th:text="${appointment.id}"></span></h5>
+                        <span class="badge"
+                            th:classappend="${appointment.status == 'CONFIRMED' ? 'bg-success' : 'bg-secondary'}"
+                            th:text="${appointment.status}"></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-sm-4 fw-bold">Doctor:</div>
+                            <div class="col-sm-8" th:text="'Dr. ' + ${appointment.doctorName}"></div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-4 fw-bold">Specialization:</div>
+                            <div class="col-sm-8" th:text="${appointment.doctorSpecialization}"></div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-4 fw-bold">Date:</div>
+                            <div class="col-sm-8"
+                                th:text="${#temporals.format(appointment.appointmentDate, 'EEEE, dd MMMM yyyy')}"></div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-4 fw-bold">Time:</div>
+                            <div class="col-sm-8"
+                                th:text="${#temporals.format(appointment.appointmentTime, 'hh:mm a')}"></div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-4 fw-bold">Reason:</div>
+                            <div class="col-sm-8 text-muted" th:text="${appointment.reason ?: 'No reason provided'}">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-end gap-2">
+                            <a th:if="${appointment.status == 'CONFIRMED'}"
+                                th:href="@{/patient/appointments/{id}/reschedule(id=${appointment.id})}"
+                                class="btn btn-warning">Reschedule</a>
+
+                            <form th:if="${appointment.status == 'CONFIRMED'}"
+                                th:action="@{/patient/appointments/{id}/cancel(id=${appointment.id})}" method="post"
+                                onsubmit="return confirm('Are you sure?')">
+                                <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+                            </form>
+
+                            <a th:href="@{/patient/appointments}" class="btn btn-outline-secondary">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

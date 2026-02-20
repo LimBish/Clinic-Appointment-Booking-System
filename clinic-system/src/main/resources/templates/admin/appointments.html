@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Manage Appointments')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <div class="row align-items-center mb-4">
+            <div class="col-md-4">
+                <h4 class="fw-bold mb-0 text-primary"><i class="bi bi-calendar3-range me-2"></i>All Appointments</h4>
+            </div>
+            <div class="col-md-8 text-md-end">
+                <form th:action="@{/admin/appointments}" method="get" class="d-inline-flex gap-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">From</span>
+                        <input type="date" name="from" class="form-control" th:value="${from}" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">To</span>
+                        <input type="date" name="to" class="form-control" th:value="${to}" />
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                    <a th:href="@{/admin/appointments}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div th:if="${#lists.isEmpty(appointments)}" class="text-center py-5">
+                    <i class="bi bi-calendar-x display-6 text-muted"></i>
+                    <p class="mt-2 text-muted">No appointments found for the selected range.</p>
+                </div>
+                <table th:if="${!#lists.isEmpty(appointments)}" class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="appt : ${appointments}">
+                            <td th:text="${appt.id}"></td>
+                            <td th:text="${#temporals.format(appt.appointmentDate, 'dd MMM yyyy')}"></td>
+                            <td th:text="${#temporals.format(appt.appointmentTime, 'hh:mm a')}"></td>
+                            <td th:text="${appt.patientName}"></td>
+                            <td th:text="'Dr. ' + ${appt.doctorName}"></td>
+                            <td>
+                                <span class="badge"
+                                    th:classappend="${appt.status == 'CONFIRMED' ? 'bg-success' : (appt.status == 'CANCELLED' ? 'bg-danger' : 'bg-secondary')}"
+                                    th:text="${appt.status}"></span>
+                            </td>
+                            <td>
+                                <form th:if="${appt.status == 'CONFIRMED'}"
+                                    th:action="@{/admin/appointments/{id}/cancel(id=${appt.id})}" method="post"
+                                    class="d-inline" onsubmit="return confirm('Cancel this appointment?')">
+                                    <input type="hidden" name="reason" value="Cancelled by Administrator" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

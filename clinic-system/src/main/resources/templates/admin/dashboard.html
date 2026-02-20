@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Admin Dashboard')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container-fluid my-4 flex-grow-1">
+        <div class="container-xl">
+
+            <h4 class="fw-bold mb-4">
+                <i class="bi bi-grid-1x2 me-2 text-primary"></i>Admin Dashboard
+                <small class="text-muted fs-6 fw-normal ms-2"
+                    th:text="${#temporals.format(today, 'EEEE, dd MMM yyyy')}"></small>
+            </h4>
+
+            <!-- ── Quality Metrics Cards (Week 3 requirements) ── -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="text-muted small mb-1">Today's Appointments</p>
+                                    <h3 class="fw-bold mb-0" th:text="${dailyReport.totalAppointments}">0</h3>
+                                </div>
+                                <i class="bi bi-calendar-check fs-2 text-primary opacity-50"></i>
+                            </div>
+                            <small class="text-muted"
+                                th:text="${dailyReport.confirmedAppointments} + ' confirmed'"></small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="text-muted small mb-1">Avg Wait Time</p>
+                                    <h3 class="fw-bold mb-0">
+                                        <span
+                                            th:text="${#numbers.formatDecimal(dailyReport.avgWaitTimeMinutes, 1, 1)}">0</span>
+                                        <small class="fs-6">min</small>
+                                    </h3>
+                                </div>
+                                <i class="bi bi-clock fs-2 text-warning opacity-50"></i>
+                            </div>
+                            <small class="text-success">
+                                <i class="bi bi-check-circle"></i> Target: &lt;15 min
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="text-muted small mb-1">Notification Delivery</p>
+                                    <h3 class="fw-bold mb-0">
+                                        <span
+                                            th:text="${#numbers.formatDecimal(dailyReport.notificationDeliveryRatePercent, 1, 1)}">0</span>
+                                        <small class="fs-6">%</small>
+                                    </h3>
+                                </div>
+                                <i class="bi bi-envelope-check fs-2 text-success opacity-50"></i>
+                            </div>
+                            <small class="text-muted">Target: ≥95%</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="text-muted small mb-1">Appointment Conflicts</p>
+                                    <h3 class="fw-bold mb-0 text-success" th:text="${dailyReport.appointmentConflicts}">
+                                        0</h3>
+                                </div>
+                                <i class="bi bi-shield-check fs-2 text-success opacity-50"></i>
+                            </div>
+                            <small class="text-success">Target: Zero conflicts</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── Queue Overview by Doctor ── -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <h6 class="mb-0"><i class="bi bi-people me-2"></i>Today's Queue by Doctor</h6>
+                    <a th:href="@{/admin/queue}" class="btn btn-outline-primary btn-sm">Full View</a>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Specialization</th>
+                                <th>Appointments</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="doctor : ${allDoctors}">
+                                <td th:text="'Dr. ' + ${doctor.user.fullName}"></td>
+                                <td th:text="${doctor.specialization}"></td>
+                                <td>
+                                    <span class="badge bg-primary"
+                                        th:text="${doctor.maxDailyAppointments} + ' max'"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/queue/{id}(id=${doctor.id})}"
+                                        class="btn btn-outline-info btn-sm">View Queue</a>
+                                    <a th:href="@{/admin/doctors/{id}(id=${doctor.id})}"
+                                        class="btn btn-outline-secondary btn-sm">Schedule</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── Quick Links ── -->
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <a th:href="@{/admin/appointments}" class="card text-decoration-none h-100">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-calendar3 fs-2 text-primary"></i>
+                            <p class="small fw-semibold mt-2 mb-0">Manage Appointments</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a th:href="@{/admin/doctors}" class="card text-decoration-none h-100">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-person-badge fs-2 text-success"></i>
+                            <p class="small fw-semibold mt-2 mb-0">Manage Doctors</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a th:href="@{/admin/users}" class="card text-decoration-none h-100">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-people fs-2 text-warning"></i>
+                            <p class="small fw-semibold mt-2 mb-0">Manage Users</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a th:href="@{/admin/reports}" class="card text-decoration-none h-100">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-bar-chart fs-2 text-info"></i>
+                            <p class="small fw-semibold mt-2 mb-0">Reports</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

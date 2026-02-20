@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Doctor Schedule')}"></head>
+
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+
+    <main class="container my-4 flex-grow-1">
+
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h4 class="fw-bold mb-0 text-primary"><i class="bi bi-calendar3 me-2"></i>My Schedule</h4>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <form th:action="@{/doctor/schedule}" method="get" class="d-inline-flex gap-2">
+                    <input type="date" name="date" class="form-control" th:value="${selectedDate}" />
+                    <button type="submit" class="btn btn-primary">Go</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- ── Daily Schedule ── -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white py-3">
+                        <h6 class="mb-0 fw-bold"><i class="bi bi-clock me-2 text-primary"></i>Daily View: <span
+                                th:text="${#temporals.format(selectedDate, 'dd MMM yyyy')}"></span></h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div th:if="${#lists.isEmpty(appointments)}" class="text-center py-5">
+                            <i class="bi bi-calendar-x display-6 text-muted"></i>
+                            <p class="mt-2 text-muted">No appointments for this day.</p>
+                        </div>
+                        <table th:if="${!#lists.isEmpty(appointments)}" class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Patient</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="appt : ${appointments}">
+                                    <td class="fw-bold" th:text="${#temporals.format(appt.appointmentTime, 'hh:mm a')}">
+                                    </td>
+                                    <td th:text="${appt.patientName}"></td>
+                                    <td>
+                                        <span class="badge"
+                                            th:classappend="${appt.status == 'CONFIRMED' ? 'bg-success' : 'bg-secondary'}"
+                                            th:text="${appt.status}"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Weekly Overview ── -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white py-3">
+                        <h6 class="mb-0 fw-bold"><i class="bi bi-calendar-range me-2 text-success"></i>Weekly Summary
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${#lists.isEmpty(weekAppointments)}" class="text-center py-5">
+                            <p class="text-muted">No appointments booked for this week.</p>
+                        </div>
+                        <div th:if="${!#lists.isEmpty(weekAppointments)}" class="list-group list-group-flush">
+                            <div th:each="appt : ${weekAppointments}" class="list-group-item px-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="badge bg-light text-dark border me-2"
+                                            th:text="${#temporals.format(appt.appointmentDate, 'dd MMM')}"></span>
+                                        <span class="fw-semibold"
+                                            th:text="${#temporals.format(appt.appointmentTime, 'hh:mm')}"></span>
+                                        <span class="ms-2" th:text="${appt.patientName}"></span>
+                                    </div>
+                                    <span class="small text-muted" th:text="${appt.status}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+
+</html>

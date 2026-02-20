@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Clinic Suspended')}"></head>
+<body class="d-flex align-items-center justify-content-center bg-light" style="min-height:100vh">
+<div class="text-center" style="max-width:480px">
+    <i class="bi bi-building-x display-1 text-danger"></i>
+    <h2 class="mt-3 fw-bold">Clinic Access Suspended</h2>
+    <p class="text-muted mt-2">
+        Your clinic's access to this platform has been temporarily suspended.
+        Please contact your clinic administrator or the platform support team.
+    </p>
+    <a th:href="@{/auth/login}" class="btn btn-outline-primary mt-3">
+        <i class="bi bi-arrow-left me-1"></i>Back to Login
+    </a>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Assign Clinic Admin — Super Admin')}"></head>
+<body class="bg-light d-flex flex-column" style="min-height:100vh">
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<div th:replace="~{fragments/layout :: alerts}"></div>
+
+<main class="container my-4 flex-grow-1" style="max-width:540px">
+
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/superadmin/clinics}">Clinics</a></li>
+            <li class="breadcrumb-item">
+                <a th:href="@{/superadmin/clinics/{id}(id=${clinic.id})}"
+                   th:text="${clinic.name}"></a>
+            </li>
+            <li class="breadcrumb-item active">Assign Admin</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-person-gear me-2"></i>
+                Create Admin for: <span th:text="${clinic.name}"></span>
+            </h5>
+        </div>
+        <div class="card-body p-4">
+
+            <div class="alert alert-info small mb-4">
+                <i class="bi bi-info-circle me-2"></i>
+                This account will have <strong>ADMIN</strong> access scoped exclusively to
+                <strong th:text="${clinic.name}"></strong>.
+                They can manage doctors, queues, and reports — but cannot see any other clinic's data.
+            </div>
+
+            <form th:action="@{/superadmin/clinics/{id}/admins(id=${clinic.id})}"
+                  th:object="${adminRequest}" method="post" novalidate>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Full Name *</label>
+                    <input type="text" th:field="*{fullName}" class="form-control"
+                           th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
+                           placeholder="Admin's full name"/>
+                    <div class="invalid-feedback" th:errors="*{fullName}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email Address *</label>
+                    <input type="email" th:field="*{email}" class="form-control"
+                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                           placeholder="admin@example.com"/>
+                    <div class="invalid-feedback" th:errors="*{email}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Temporary Password *</label>
+                    <input type="password" th:field="*{password}" class="form-control"
+                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                           placeholder="Minimum 8 characters"/>
+                    <div class="form-text">Admin should change this on first login.</div>
+                    <div class="invalid-feedback" th:errors="*{password}"></div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Phone *</label>
+                    <input type="tel" th:field="*{phone}" class="form-control"
+                           th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'"
+                           placeholder="+977 98XXXXXXXX"/>
+                    <div class="invalid-feedback" th:errors="*{phone}"></div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-person-plus me-1"></i>Create Admin Account
+                    </button>
+                    <a th:href="@{/superadmin/clinics/{id}(id=${clinic.id})}"
+                       class="btn btn-outline-secondary">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
