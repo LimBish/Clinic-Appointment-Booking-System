@@ -67,8 +67,11 @@
                             <div th:if="${#fields.hasErrors('appointmentTime')}" class="text-danger small mt-1"
                                  th:errors="*{appointmentTime}"></div>
                         </div>
-                        <input type="hidden" th:field="*{doctorId}" />
-                        <input type="hidden" th:field="*{appointmentDate}"/>
+<!--                        <input type="hidden" th:field="*{doctorId}" th:value="${selectedDoctor.id}"/>-->
+<!--                        <input type="hidden" th:field="*{appointmentDate}" th:value="${selectedDate}"/>-->
+
+                        <input type="hidden" name="doctorId" th:value="${selectedDoctor.id}" />
+                        <input type="hidden" name="appointmentDate" th:value="${selectedDate}" />
                         <div class="mb-4">
                             <label class="form-label fw-semibold">4. Reason for Visit</label>
                             <textarea th:field="*{reason}" class="form-control" rows="3"
