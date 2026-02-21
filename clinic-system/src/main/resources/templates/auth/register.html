@@ -25,6 +25,16 @@
                            placeholder="e.g. Ram Sharma" required/>
                     <div class="invalid-feedback" th:errors="*{fullName}"></div>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">1. Choose Clinic</label>
+                    <select name="clinicId" class="form-select">
+                        <option value="">-- Select Clinic --</option>
+                        <option th:each="clinic : ${activeClinics}"
+                                name="clinicId"
+                                th:value="${clinic.id}"
+                                th:text="${clinic.name}"></option>
+                    </select>
+                </div>
 
                 <!-- Email -->
                 <div class="mb-3">

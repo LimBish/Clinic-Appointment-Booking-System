@@ -48,6 +48,7 @@ D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\NotificationService.java
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\QueueEntry.java
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\UserResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\DoctorCreateRequest.java
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\PatientRegistrationRequest.java
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\enums\Role.java
 D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\BaseEntity.java

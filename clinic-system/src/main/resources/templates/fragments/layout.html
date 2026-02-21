@@ -26,6 +26,9 @@
 
 <body>
 
+
+
+
 <!-- ── Navbar ──────────────────────────────────────────────────────────────── -->
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
@@ -79,7 +82,7 @@
                 </sec:authorize>
 
                 <!-- DOCTOR links -->
-                <sec:authorize access="hasRole('DOCTOR')">
+                <sec:authorize access="hasRole('ROLE_DOCTOR')">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/doctor/dashboard}">Dashboard</a>
                     </li>

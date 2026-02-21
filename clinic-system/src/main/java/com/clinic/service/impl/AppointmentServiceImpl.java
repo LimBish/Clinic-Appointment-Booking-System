@@ -291,4 +291,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return appointment;
     }
+
+//    @Override
+//    public List<Appointment> getAppointment(String active) {
+//        List<Appointment>  appointment = appointmentRepository.findByStatus(active)
+//                .orElseThrow(() -> new ResourceNotFoundException("Appointment", null));
+//        return null;
+//    }
 }

@@ -5,6 +5,7 @@ import com.clinic.model.entity.Clinic;
 import com.clinic.model.entity.Doctor;
 import com.clinic.model.entity.Patient;
 import com.clinic.model.enums.AppointmentStatus;
+import com.clinic.model.enums.ClinicStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -116,6 +117,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             @Param("to") LocalDate to);
 
     /** Cross-clinic total appointment count */
+
     long countByStatus(AppointmentStatus status);
+
+    @Query("SELECT c FROM Appointment c WHERE c.status = 'ACTIVE'")
+    List<Appointment> findByStatus(String status);
 }
 

@@ -25,6 +25,7 @@ public interface ClinicRepository extends JpaRepository<Clinic, Long> {
 
     boolean existsByEmail(String email);
 
+    @Query("SELECT c FROM Clinic c WHERE c.status = 'ACTIVE'")
     List<Clinic> findByStatus(ClinicStatus status);
 
     List<Clinic> findAllByOrderByNameAsc();

@@ -1,13 +1,15 @@
 package com.clinic.controller;
 
-import com.clinic.repository.UserRepository;
+import com.clinic.dto.request.DoctorCreateRequest;
 import com.clinic.service.*;
 import com.clinic.util.SecurityUtils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,8 +47,7 @@ public class AdminController {
     private final UserService userService;
     private final AdminReportService reportService;
     private final SecurityUtils SecurityUtils;
-
-
+    private final ClinicService clinicService;
 
     // ─── Dashboard ─────────────────────────────────────────────────────────────
 
@@ -217,5 +218,37 @@ public class AdminController {
         model.addAttribute("from", start);
         model.addAttribute("to", end);
         return "admin/reports";
+    }
+
+    @GetMapping("/create/doctor")
+    public String newDoctor(Model model) {
+        model.addAttribute("doctorCreate", new DoctorCreateRequest());
+        model.addAttribute("activeClinics", clinicService.getClinicsByStatus("ACTIVE"));
+//        model.addAttribute("appointment", appointmentService.getAppointment("ACTIVE"));
+
+        return "admin/doctor-create";
+    }
+
+    @PostMapping("/register/doctor")
+    public String register(
+            @Valid @ModelAttribute("doctorCreate") DoctorCreateRequest request,
+            BindingResult result,
+            RedirectAttributes redirectAttributes,
+            Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("activeClinics", clinicService.getClinicsByStatus("ACTIVE"));
+            model.addAttribute("schedule", clinicService.getClinicsByStatus("ACTIVE"));
+            return "admin/doctor-create";
+        }
+        try {
+            doctorService.registerDoctor(request);
+            redirectAttributes.addFlashAttribute("successMsg",
+                    "Registration successful! Please log in.");
+            return "redirect:/admin/dashboard";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
+            return "redirect:/admin/dashboard";
+        }
     }
 }

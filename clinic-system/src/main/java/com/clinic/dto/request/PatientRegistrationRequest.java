@@ -29,7 +29,7 @@ public class PatientRegistrationRequest {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 4, message = "Password must be at least 8 characters")
     private String password;
 
     @NotBlank(message = "Phone number is required")

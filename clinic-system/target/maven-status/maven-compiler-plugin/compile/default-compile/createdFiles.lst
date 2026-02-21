@@ -26,6 +26,7 @@ com\clinic\dto\request\AppointmentBookRequest.class
 com\clinic\dto\response\AppointmentResponse$AppointmentResponseBuilder.class
 com\clinic\model\entity\Notification.class
 com\clinic\controller\DoctorController.class
+com\clinic\dto\request\DoctorCreateRequest.class
 com\clinic\model\enums\QueueStatus.class
 com\clinic\dto\response\AppointmentResponse.class
 com\clinic\model\enums\AppointmentStatus.class
@@ -59,6 +60,7 @@ com\clinic\util\AppointmentMapper.class
 com\clinic\model\enums\Role.class
 com\clinic\config\RoleBasedLoginSuccessHandler.class
 com\clinic\model\entity\Appointment$AppointmentBuilder.class
+com\clinic\dto\request\DoctorCreateRequest$DoctorCreateRequestBuilder.class
 com\clinic\service\impl\QueueServiceImpl.class
 com\clinic\ClinicAppApplication.class
 com\clinic\repository\PatientRepository.class

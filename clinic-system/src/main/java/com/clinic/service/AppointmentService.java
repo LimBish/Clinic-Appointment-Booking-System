@@ -4,6 +4,7 @@ import com.clinic.dto.request.AppointmentBookRequest;
 import com.clinic.dto.request.AppointmentRescheduleRequest;
 import com.clinic.dto.response.AppointmentResponse;
 import com.clinic.dto.response.AvailableSlotResponse;
+import com.clinic.model.entity.Appointment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -71,4 +72,6 @@ public interface AppointmentService {
 
     /** Admin / Doctor: mark appointment as COMPLETED after consultation. */
     AppointmentResponse completeAppointment(Long appointmentId, Long doctorUserId);
+
+//    List<Appointment> getAppointment(String active);
 }

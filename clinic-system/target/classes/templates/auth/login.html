@@ -28,8 +28,8 @@
                 <h5 class="card-title mb-3">Sign In</h5>
 
                 <!-- Flash messages -->
-<!--                <div th:if="${errorMsg}" class="alert alert-danger py-2" th:text="${errorMsg}"></div>-->
-<!--                <div th:if="${successMsg}" class="alert alert-success py-2" th:text="${successMsg}"></div>-->
+                <div th:if="${errorMsg}" class="alert alert-danger py-2" th:text="${errorMsg}"></div>
+                <div th:if="${successMsg}" class="alert alert-success py-2" th:text="${successMsg}"></div>
 
                 <form th:action="@{/auth/login}" method="post">
                     <!-- CSRF token added by Spring Security / Thymeleaf automatically -->
