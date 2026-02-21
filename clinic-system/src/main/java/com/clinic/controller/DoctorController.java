@@ -34,6 +34,7 @@ public class DoctorController {
     private final AppointmentService appointmentService;
     private final QueueService queueService;
     private final DoctorService doctorService;
+    private final SecurityUtils SecurityUtils;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {

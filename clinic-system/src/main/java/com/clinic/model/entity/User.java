@@ -68,6 +68,6 @@ public class User extends BaseEntity {
     private Patient patient;
 
     /** Populated only when role == DOCTOR */
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Doctor doctor;
 }

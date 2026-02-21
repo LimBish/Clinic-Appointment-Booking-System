@@ -17,14 +17,15 @@ import java.util.Optional;
  * without needing to inject UserRepository everywhere.
  */
 @Component
+@RequiredArgsConstructor()
 public class SecurityUtils {
 
-    @Autowired
-    private static UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
 
     /** Returns the ID of the currently logged-in user. */
-    public static Long getCurrentUserId() {
+    public Long getCurrentUserId() {
         String email = getCurrentEmail();
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent())
@@ -36,7 +37,7 @@ public class SecurityUtils {
     }
 
     /** Returns the email (username) of the currently logged-in user. */
-    public static String getCurrentEmail() {
+    public String getCurrentEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             throw new RuntimeException("No authenticated user found");

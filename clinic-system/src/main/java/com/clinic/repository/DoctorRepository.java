@@ -39,6 +39,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query("SELECT DISTINCT d.specialization FROM Doctor d ORDER BY d.specialization")
     List<String> findAllSpecializations();
 
+    @Query("SELECT d FROM Doctor d WHERE d.available = true")
     List<Doctor> findByAvailableTrue();
 
     List<Doctor> findBySpecializationIgnoreCase(String specialization);

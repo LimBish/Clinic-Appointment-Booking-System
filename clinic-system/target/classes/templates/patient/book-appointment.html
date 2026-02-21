@@ -21,11 +21,11 @@
                     <form th:action="@{/patient/appointments/book}" method="get" class="row g-3 mb-4 border-bottom pb-4">
                         <div class="col-md-5">
                             <label class="form-label fw-semibold">1. Choose Doctor</label>
-                            <select name="doctorId" class="form-select" onchange="this.form.submit()">
+                            <select name="doctorId" class="form-select">
                                 <option value="">-- Select Doctor --</option>
                                 <option th:each="doc : ${doctors}"
                                         th:value="${doc.id}"
-                                        th:text="'Dr. ' + ${doc.fullName} + ' (' + ${doc.specialization} + ')'"
+                                        th:text="'Dr. ' + ${doc.user.fullName} + ' (' + ${doc.specialization} + ')'"
                                         th:selected="${selectedDoctor != null and selectedDoctor.id == doc.id}"></option>
                             </select>
                         </div>
@@ -33,7 +33,6 @@
                             <label class="form-label fw-semibold">2. Select Date</label>
                             <input type="date" name="date" class="form-select"
                                    th:value="${selectedDate}"
-                                   onchange="this.form.submit()"
                                    th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"/>
                         </div>
                         <div class="col-md-2 d-flex align-items-end">
@@ -44,9 +43,11 @@
                     <!-- ── Step 2: Choose Slot & Reason ── -->
                     <form th:if="${availableSlots != null}" th:action="@{/patient/appointments/book}"
                           th:object="${bookRequest}" method="post">
-                        
-                        <input type="hidden" th:field="*{doctorId}" th:value="${selectedDoctor.id}"/>
-                        <input type="hidden" th:field="*{appointmentDate}" th:value="${selectedDate}"/>
+
+<!--                        <input type="hidden" th:field="*{doctorId}" />-->
+<!--                        <input type="hidden" th:field="*{appointmentDate}" />-->
+
+
 
                         <div class="mb-4">
                             <label class="form-label fw-semibold d-block mb-3">3. Pick an Available Slot</label>
@@ -57,6 +58,7 @@
                                            th:disabled="${!slot.available}"/>
                                     <label class="btn btn-outline-primary w-100" th:for="'slot_' + ${slotStat.index}"
                                            th:text="${#temporals.format(slot.time, 'hh:mm a')}"></label>
+
                                 </div>
                                 <div th:if="${#lists.isEmpty(availableSlots)}" class="col-12 text-center py-3 text-danger">
                                     <i class="bi bi-calendar-x me-2"></i>No slots available for this date.
@@ -65,7 +67,8 @@
                             <div th:if="${#fields.hasErrors('appointmentTime')}" class="text-danger small mt-1"
                                  th:errors="*{appointmentTime}"></div>
                         </div>
-
+                        <input type="hidden" th:field="*{doctorId}" />
+                        <input type="hidden" th:field="*{appointmentDate}"/>
                         <div class="mb-4">
                             <label class="form-label fw-semibold">4. Reason for Visit</label>
                             <textarea th:field="*{reason}" class="form-control" rows="3"

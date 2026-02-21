@@ -1,70 +1,70 @@
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\request\PatientRegistrationRequest.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\ClinicService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\NotificationService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\UserRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\QueueEntryResponseBase.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\QueueEntry.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\AppointmentResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\DuplicateResourceException.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\NotificationRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\AppointmentService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\ClinicAppApplication.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\User.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\Appointment.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\DoctorRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\AdminReportService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\UnauthorizedAccessException.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\DoctorScheduleRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\security\CustomUserDetailsService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\Patient.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\security\ClinicContextFilter.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\AdminReportServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\UserResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\UserServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\controller\AuthController.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\PatientRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\controller\SuperAdminController.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\enums\Role.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\DoctorService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\request\AppointmentRescheduleRequest.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\ClinicResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\BaseEntity.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\QueueService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\DoctorServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\UserService.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\ClinicExceptions.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\DoctorSchedule.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\AppointmentRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\scheduler\AppointmentReminderScheduler.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\ClinicServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\config\DataSeeder.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\enums\AppointmentStatus.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\request\AppointmentBookRequest.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\controller\PatientController.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\QueueEntryResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\util\SecurityUtils.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\GlobalExceptionHandler.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\AppointmentConflictException.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\DailyReportResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\AvailableSlotResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\util\ClinicContextHolder.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\Notification.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\request\ClinicAdminCreateRequest.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\controller\AdminController.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\QueueServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\AppointmentServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\Clinic.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\enums\ClinicStatus.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\util\AppointmentMapper.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\entity\Doctor.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\controller\DoctorController.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\ClinicRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\config\RoleBasedLoginSuccessHandler.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\model\enums\QueueStatus.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\exception\ResourceNotFoundException.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\service\impl\EmailNotificationServiceImpl.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\response\PlatformStatsResponse.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\config\SecurityConfig.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\repository\QueueEntryRepository.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\dto\request\ClinicCreateRequest.java
-D:\WestCliff University\6th Trimester\clinic-appointment-system-v2\clinic-system\src\main\java\com\clinic\util\QueueMapper.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\AppointmentRescheduleRequest.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\AppointmentServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\QueueService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\controller\DoctorController.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\UserRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\ClinicServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\AdminReportService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\controller\PatientController.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\DoctorService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\PlatformStatsResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\util\AppointmentMapper.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\config\SecurityConfig.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\enums\ClinicStatus.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\UnauthorizedAccessException.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\ClinicAppApplication.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\GlobalExceptionHandler.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\controller\AuthController.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\DailyReportResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\AppointmentConflictException.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\util\QueueMapper.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\Doctor.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\AdminReportServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\DuplicateResourceException.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\enums\AppointmentStatus.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\ClinicService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\QueueEntryResponseBase.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\enums\QueueStatus.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\QueueEntryResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\NotificationRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\ClinicRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\AppointmentBookRequest.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\QueueServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\QueueEntryRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\controller\AdminController.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\security\CustomUserDetailsService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\util\SecurityUtils.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\ClinicCreateRequest.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\DoctorServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\config\DataSeeder.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\ClinicAdminCreateRequest.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\AppointmentResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\UserServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\config\RoleBasedLoginSuccessHandler.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\Clinic.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\DoctorScheduleRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\AppointmentService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\DoctorRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\NotificationService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\QueueEntry.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\UserResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\request\PatientRegistrationRequest.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\enums\Role.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\BaseEntity.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\AppointmentRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\ResourceNotFoundException.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\impl\EmailNotificationServiceImpl.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\service\UserService.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\DoctorSchedule.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\Appointment.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\User.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\ClinicResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\repository\PatientRepository.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\util\ClinicContextHolder.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\exception\ClinicExceptions.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\controller\SuperAdminController.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\dto\response\AvailableSlotResponse.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\security\ClinicContextFilter.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\Notification.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\model\entity\Patient.java
+D:\work\Clinic-Appointment-Booking-System\clinic-system\src\main\java\com\clinic\scheduler\AppointmentReminderScheduler.java

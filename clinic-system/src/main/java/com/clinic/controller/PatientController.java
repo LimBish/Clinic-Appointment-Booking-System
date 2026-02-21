@@ -44,6 +44,7 @@ public class PatientController {
     private final AppointmentService appointmentService;
     private final DoctorService doctorService;
     private final QueueService queueService;
+    private final SecurityUtils SecurityUtils;
 
     // ─── Dashboard ─────────────────────────────────────────────────────────────
 

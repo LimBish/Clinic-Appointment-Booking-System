@@ -44,8 +44,7 @@ public class AdminController {
     private final DoctorService doctorService;
     private final UserService userService;
     private final AdminReportService reportService;
-    private final ClinicService clinicService;
-    private final UserRepository userRepository;
+    private final SecurityUtils SecurityUtils;
 
 
 
